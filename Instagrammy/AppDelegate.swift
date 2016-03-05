@@ -25,6 +25,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         )
         
+        
+        NSNotificationCenter.defaultCenter().addObserverForName("UserDidLogout", object: nil , queue: NSOperationQueue.mainQueue()) { (NSNotification) -> Void in
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController()
+            self.window?.rootViewController = vc
+        }
+        
+        if PFUser.currentUser() != nil {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("HomePageNavigationController")
+            window?.rootViewController = vc
+        }
+
+        
         return true
     }
 
